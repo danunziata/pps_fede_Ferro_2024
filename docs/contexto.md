@@ -2,7 +2,7 @@
 
 Vendría a ser como un triangulo que esta compuesto por: el desarrollo, la seguridad y las operaciones. El objetivo es integrar la seguridad en nuestro CI/CD ya sea en preproduccion o produccion.
 
-![image-20240316174332688](/home/fede/pps_fede_Ferro_2024/docs/images/image-20240316174332688.png)
+![image-20240316174332688](images/image-20240316174332688.png)
 
 DevOps gano importancia en los ultimos años ya que combina principios clave de las operaciones con los ciclos de desarrollo.
 
@@ -10,7 +10,7 @@ La seguridad refiere a todas las herramientas y tecnicas necesarias para diseña
 
 DevSecOps permite que las pruebas de seguridad ocurran al mismo tiempo que otros desarrollos o testeos se encuentren en marcha.
 
-![image-20240316175103247](/home/fede/pps_fede_Ferro_2024/docs/images/image-20240316175103247.png)
+![image-20240316175103247](images/image-20240316175103247.png)
 
 El primer desafío implica capacitar a los equipos de DevOps en seguridad y promover una cultura de responsabilidad sobre la seguridad del software. El segundo desafío es encontrar y integrar herramientas de  seguridad adecuadas en el flujo de trabajo de DevOps. La automatización  es clave, pero las herramientas tradicionales pueden no ser suficientes  debido a cambios en el entorno de desarrollo, como el aumento del  software de código abierto y las aplicaciones en contenedores.
 
@@ -119,4 +119,4 @@ Cuando se despliega Kubernetes, obtenemos un Cluster. Consiste en un grupo de wo
 
 Los nodos workers alojan los Pods que son los componentes de la  carga de trabajo de la aplicación. El plano de control gestiona los nodos de trabajadores y los Pods en el clúster. En entornos de producción, el plano de control generalmente se ejecuta en múltiples computadoras y un Clúster generalmente ejecuta múltiples nodos,  proporcionando tolerancia a fallos y alta disponibilidad.
 
-![Components of Kubernetes](/home/fede/pps_fede_Ferro_2024/docs/images/components-of-kubernetes.svg)
+![Components of Kubernetes](images/components-of-kubernetes.svg)
