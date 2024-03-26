@@ -133,3 +133,28 @@ pps_fede_Ferro_2024/
 ├── src/                  # Contiene todo el código del Proyecto
 ├── README.md             # Previsualización del Proyecto
 ```
+
+## README
+
+Los archivos README contiene la *informacion importante que el usuario tiene que leer antes de proceder*. Suele ser la primera y unica observacion en el proyecto que tiene el usuario, entonces es importante explicar lo que hace el proyecto y como lo hace de manera efectiva. el README tiene que decir:
+
+- Que es? (con contexto previo)
+- Mostrar como funciona
+- Mostrar como se usa
+- Expresar otros detalles relevantes
+
+### Elementos claves
+
+- nombre: Buscar nombres que se expliquen por si mismos.
+- breve descripcion: Una breve descripcion de una linea describiendo el proyecto ayuda a tener una idea de que hace el mismo.
+- uso: Siempre es mejor mostrar el proyecto en una aplicacion real o ejemplo.
+- elementos visuales: incluir screenshots o videos
+- instalacion: proveerle y explicarle al usuario todo lo que necesita saber.
+- licencia: aplicarla y mostrarla lo mas arriba posible.
+- roadmap: explicar las ideas a futuro del proyecto.
+
+### Recomendaciones
+
+- Poner links de referencia donde sea posible para mayor entendimiento del proyecto.
+- Poner el código de ejemplo en el repositorio.
+- Estado del Proyecto
