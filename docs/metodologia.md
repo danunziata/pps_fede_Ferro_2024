@@ -98,3 +98,38 @@ El enfoque consiste en un sustantivo que describe la seccion que representa el c
 Y por ultimo una pequeña descripcion que resume los cambios realizados en el repositorio.
 
 Posteriormente se puede usar otras características que nos ayudan a distinguir de una mejor manera los commits, pero lo mencionado anteriormente regula lo basico y representara lo que se va a utilizar en la actual practica.
+
+## Estructura del Proyecto
+
+La estructura de los proyecto es una de las primeras cosas a tener en cuenta debido a que hace al mismo proyecto reproducible.
+
+### Consejos
+
+- Los archivos del proyecto van en una sola carpeta
+- Utilizar estructuras consistentes e informativas
+- Para separar los archivos privados de los públicos se utiliza .gitignore o se lo coloca en una carpeta separada que no es git
+- Se necesita un archivo [README.md](http://README.md) para describir el proyecto y las instrucciones para que el proyecto sea reproducible
+- Organiza tus archivos en base a los componentes y no a los roles. Ademas, coloca los archivos de prueba al lado de los de implementación.
+
+### Estructura Básica
+
+Aquí se observa una estructura básica que puede representar un proyecto. Habitualmente la mayoria de los repositorios cuentan con esta estructura
+
+- **Carpeta src:** Es la carpeta de código fuente. Sin embargo, en lenguajes que usan encabezados (o si tienes un marco de trabajo para tu aplicación) no coloques esos archivos aquí.
+- **Carpeta test**: Pruebas unitarias, pruebas de integración.
+- **Carpeta .config**: Debe contener la configuración local relacionada con la configuración en la máquina local.
+- **Carpeta .build**: Esta carpeta debe contener todos los scripts relacionados con el proceso de construcción (PowerShell, Docker compose…).
+- **Carpeta dep**: Este es el directorio donde se deben almacenar todas tus dependencias.
+- **Carpeta doc**: La carpeta de documentación
+- **Carpeta res**: Para todos los recursos estáticos en tu proyecto. Por ejemplo, imágenes.
+- **Carpeta samples**: Proporciona ejemplos
+- **Carpeta tools**: Directorio de conveniencia para tu uso. Debe contener scripts para automatizar tareas en el proyecto, por ejemplo, scripts de construcción, scripts de cambio de nombre. Generalmente contiene archivos .sh, .cmd por ejemplo.
+
+### Estructura Actual
+
+```
+pps_fede_Ferro_2024/
+├── docs/                 # Documentacion del Proyecto
+├── src/                  # Contiene todo el código del Proyecto
+├── README.md             # Previsualización del Proyecto
+```
