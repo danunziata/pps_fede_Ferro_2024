@@ -21,9 +21,6 @@ theme:
     - content.code.annotation
     - content.code.copy
   
-  favicon: img/mlops_icon.png
-  logo: img/mlops_icon.png
-  
   icon:
     repo: fontawesome/brands/github
   
