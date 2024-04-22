@@ -158,3 +158,11 @@ Los archivos README contiene la *informacion importante que el usuario tiene que
 - Poner links de referencia donde sea posible para mayor entendimiento del proyecto.
 - Poner el código de ejemplo en el repositorio.
 - Estado del Proyecto
+
+## Puntos de Estimación
+
+Mientras que la mayoría de los equipos estiman la dificultad de una tarea por tiempo (medio día, una semana o un mes), los puntos de estimación son un método para medir el esfuerzo en una escala relativa. La asignación de tareas en función de la dificultad relativa permite una  descripción más precisa del esfuerzo que se espera para la tarea porque, a diferencia de las estimaciones de tiempo, los puntos de estimación se refieren solo a la tarea en cuestión, no a los correos electrónicos, las reuniones o los retrasos inesperados que podrían afectar el tiempo que  se tarda en completar la tarea.
+
+Los desarrolladores usan una sucesión de Fibonacci: 0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100, como una métrica para medir los puntos de historia con el fin de obligar a los equipos a tomar decisiones claras. Por ejemplo, si tienes que completar un proyecto y alguien te pregunta  si te llevará 3 o 4 horas, puedes dudar sobre cómo responder porque la  diferencia es tan pequeña que es difícil de adivinar. En cambio, si  alguien te preguntara si te llevará 3 o 6 horas, probablemente tu  respuesta sería mucho más clara.
+
+![Fibonacci](images/fibonacci.png)
