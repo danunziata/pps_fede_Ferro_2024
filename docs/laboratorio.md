@@ -95,7 +95,7 @@ Comprobar que se ha instalado de manera correcta
 kubectl version --client
 ```
 
-### Desplegar Kubernetes
+### Creacion de un Cluster de Kubernetes
 
 Para comenzar, iniciaremos arrancando el cluster teniendo en cuenta los parámetros que queremos que cumpla. Para ello, propondremos la siguiente linea de comando
 

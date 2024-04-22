@@ -1,4 +1,8 @@
-# DevSecOps
+# Introducción
+
+La documentación aborda aspectos cruciales en el desarrollo y la seguridad de aplicaciones modernas, destacando la integración de la seguridad en el ciclo de vida del desarrollo y la importancia de la observabilidad y Kubernetes en este proceso.
+
+## DevSecOps
 
 Vendría a ser como un triangulo que esta compuesto por: el desarrollo, la seguridad y las operaciones. El objetivo es integrar la seguridad en nuestro CI/CD ya sea en preproduccion o produccion.
 
@@ -14,7 +18,7 @@ DevSecOps permite que las pruebas de seguridad ocurran al mismo tiempo que otros
 
 El primer desafío implica capacitar a los equipos de DevOps en seguridad y promover una cultura de responsabilidad sobre la seguridad del software. El segundo desafío es encontrar y integrar herramientas de  seguridad adecuadas en el flujo de trabajo de DevOps. La automatización  es clave, pero las herramientas tradicionales pueden no ser suficientes  debido a cambios en el entorno de desarrollo, como el aumento del  software de código abierto y las aplicaciones en contenedores.
 
-# Observabilidad
+## Observabilidad
 
 **La observabilidad se refiere a cómo se puede comprender el  estado interno de un sistema mediante el examen de sus salidas externas, en especial, sus datos.**
 
@@ -28,80 +32,7 @@ Los tres pilares de la observabilidad son los **logs**, las **métricas** y los 
 
 La observabilidad lleva a una entrega de aplicaciones más rápida y de  mayor calidad, lo que significa ahorro de costos y optimización de  recursos para tus equipos. Las aplicaciones con mejor rendimiento  llevan, en última instancia, a más ingresos.
 
-# Diferentes áreas de aplicacion de seguridad en Kubernetes
-
-## Configuración de Seguridad en el Cluster
-
-- Permisos y controles de acceso
-
-- Seguridad para el servidor API
-
-- Auditar configuracion del cluster
-
-- Políticas de seguridad de los PODS
-
-- Políticas de red
-
-- Requerimientos regulatorios
-
-
-## Manejo de Identidad y Acceso
-
-- Métodos de autentificacion seguros
-- Acceso de control basado en la implementacion de roles
-- Utilización de recursos
-- Monitorear al usuario
-- Asegurar al acceso al panel de control
-- Proteger las credenciales
-- Segmentación de redes para isolar los nodos y los pods del publico
-- Monitorear anomalías
-
-## Seguridad de red
-
-- Segmentación e Isolacion de la red
-- Políticas de red
-- Herramientas de seguridad de red
-- Encriptacion de datos
-- Canales seguros de comunicacion
-- Habitar la encriptacion SSL/TLS
-- Ocultar los metadata de los kubernetes
-- Deshabilitar servicios innecesarios
-- Monitoreo de trafico
-- Implementar procedimientos de respuesta 
-
-## Seguridad del Nodo
-
-- Seguridad del sistema operativo
-- Seguridad de la red
-- Seguridad del nodo
-- Seguridad de los containers
-- Seguridad de los contenedores de imaganes
-
-## Seguridad del Pod
-
-- Seguridad de los kubernetes 
-- Usar contenedores seguros
-- Principios menos priviligiados
-- Montar volumenes seguros
-- Utilizar variables de ambiente seguras
-- Actividad del Pod
-- Control de Acceso
-
-## Seguridad de la imagen
-
-- Registros del contenedor
-- Escaneo de la imagen
-- Actualizaciones
-
-## Administracion de Secrets
-
-## Monitoreo
-
-## Recuperacion BackUp 
-
-
-
-# Kubernetes
+## Kubernetes
 
 Kubernetes es una plataforma portable y extensible de código abierto para administrar cargas de trabajo y servicios. Kubernetes facilita la automatización y la configuración declarativa. Tiene un ecosistema grande y en rápido crecimiento. El soporte, las herramientas y los servicios para Kubernetes están ampliamente disponibles.
 
@@ -120,3 +51,85 @@ Cuando se despliega Kubernetes, obtenemos un Cluster. Consiste en un grupo de wo
 Los nodos workers alojan los Pods que son los componentes de la  carga de trabajo de la aplicación. El plano de control gestiona los nodos de trabajadores y los Pods en el clúster. En entornos de producción, el plano de control generalmente se ejecuta en múltiples computadoras y un Clúster generalmente ejecuta múltiples nodos,  proporcionando tolerancia a fallos y alta disponibilidad.
 
 ![Components of Kubernetes](images/components-of-kubernetes.svg)
+
+## Diferentes áreas de aplicación de seguridad en Kubernetes
+
+### Configuración de Seguridad en el Cluster
+
+- Permisos y controles de acceso
+
+- Seguridad para el servidor API
+
+- Auditar configuracion del cluster
+
+- Políticas de seguridad de los PODS
+
+- Políticas de red
+
+- Requerimientos regulatorios
+
+
+### Manejo de Identidad y Acceso
+
+- Métodos de autentificación seguros
+- Acceso de control basado en la implementacion de roles
+- Utilización de recursos
+- Monitorear al usuario
+- Asegurar al acceso al panel de control
+- Proteger las credenciales
+- Segmentación de redes para isolar los nodos y los pods del publico
+- Monitorear anomalías
+
+### Seguridad de red
+
+- Segmentación e Isolación de la red
+- Políticas de red
+- Herramientas de seguridad de red
+- Encriptación de datos
+- Canales seguros de comunicacion
+- Habitar la encriptacion SSL/TLS
+- Ocultar los metadata de los kubernetes
+- Deshabilitar servicios innecesarios
+- Monitoreo de trafico
+- Implementar procedimientos de respuesta 
+
+### Seguridad del Nodo
+
+- Seguridad del sistema operativo
+- Seguridad de la red
+- Seguridad del nodo
+- Seguridad de los containers
+- Seguridad de los contenedores de imaganes
+
+### Seguridad del Pod
+
+- Seguridad de los kubernetes 
+- Usar contenedores seguros
+- Principios menos priviligiados
+- Montar volumenes seguros
+- Utilizar variables de ambiente seguras
+- Actividad del Pod
+- Control de Acceso
+
+### Seguridad de la imagen
+
+- Registros del contenedor
+- Escaneo de la imagen
+- Actualizaciones
+
+### Administración de Secrets
+- Evitar la exposicion de secrets
+- Encriptación y Administración de secrets
+
+### Monitoreo
+
+- Plataforma de Registros
+- Auditaje
+- Notificaciones y Alertas
+
+### Recuperación de Respaldo
+
+- Almacenamiento de Datos
+- Procesos de restauración
+- Plan de contingencia
+

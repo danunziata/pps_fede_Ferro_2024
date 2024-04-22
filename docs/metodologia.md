@@ -80,25 +80,6 @@ La condición principal es que en cada lanzamiento de produccion sea basado en e
 
 Las ventajas son que el historial es mas limpio y mas legible, flexible a decisión de equipo e ideal para la producción de una única versión. Pero no se recomienda para CD/CI.
 
-## Commits
-
-La forma en que aplicaremos los commits están reglamentados en la especificación Conventional Commits que nos provee una serie de reglas sencillas para poder crear un historial explicito de commits, donde sea mas fácil escribir herramientas automatizadas encima de eso. La estructura esta basada en la siguiente forma: 
-
-```
-<tipo>(enfoque opcional): <descripcion>
-```
-
-Los tipos mas utilizados y que se emplearan en este trabajo son:
-
-- **feat**: representa una nueva funcionalidad o un cambio significativo.
-- **fix**: representa correcciones pequeñas o arreglos insignificantes.
-
-El enfoque consiste en un sustantivo que describe la seccion que representa el commit.
-
-Y por ultimo una pequeña descripcion que resume los cambios realizados en el repositorio.
-
-Posteriormente se puede usar otras características que nos ayudan a distinguir de una mejor manera los commits, pero lo mencionado anteriormente regula lo basico y representara lo que se va a utilizar en la actual practica.
-
 ## Estructura del Proyecto
 
 La estructura de los proyecto es una de las primeras cosas a tener en cuenta debido a que hace al mismo proyecto reproducible.
@@ -133,6 +114,25 @@ pps_fede_Ferro_2024/
 ├── src/                  # Contiene todo el código del Proyecto
 ├── README.md             # Previsualización del Proyecto
 ```
+
+## Commits
+
+La forma en que aplicaremos los commits están reglamentados en la especificación Conventional Commits que nos provee una serie de reglas sencillas para poder crear un historial explicito de commits, donde sea mas fácil escribir herramientas automatizadas encima de eso. La estructura esta basada en la siguiente forma: 
+
+```
+<tipo>(enfoque opcional): <descripcion>
+```
+
+Los tipos mas utilizados y que se emplearan en este trabajo son:
+
+- **feat**: representa una nueva funcionalidad o un cambio significativo.
+- **fix**: representa correcciones pequeñas o arreglos insignificantes.
+
+El enfoque consiste en un sustantivo que describe la seccion que representa el commit.
+
+Y por ultimo una pequeña descripcion que resume los cambios realizados en el repositorio.
+
+Posteriormente se puede usar otras características que nos ayudan a distinguir de una mejor manera los commits, pero lo mencionado anteriormente regula lo basico y representara lo que se va a utilizar en la actual practica.
 
 ## README
 
