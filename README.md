@@ -18,46 +18,35 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
+
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
-
-<h3 align="center">project_title</h3>
+<h3 align="center">PPS Federico Rodriguez Ferro</h3>
 
   <p align="center">
-    project_description
+    Seguridad de entornos contenerizados con enfoque en Kubernetes
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="danunziata.github.io/pps_fede_Ferro_2024/"><strong>Mira la Documentación completa »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
   </p>
+
 </div>
 
 
 
 <!-- TABLE OF CONTENTS -->
+
 <details>
-  <summary>Table of Contents</summary>
+  <summary>Tabla de Contenidos</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#sobre-el-proyecto">Sobre el proyecto</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
@@ -72,18 +61,19 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#licencia">Licencia</a></li>
+    <li><a href="#contacto">Contacto</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<!-- ABOUT THE PROJECT -->
+## Sobre el proyecto
+
+![Product Name Screen Shot](docs/images/devsecops.png)
 
 Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
 
@@ -184,22 +174,31 @@ Don't forget to give the project a star! Thanks again!
 
 
 <!-- LICENSE -->
-## License
+## Licencia
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Este proyecto se distribuye bajo los términos de la  Licencia Pública General de GNU, versión 3.0 (GNU General Public  License, version 3.0). Consulta el archivo [LICENSE](https://github.com/danunziata/pps_fede_Ferro_2024/blob/main/LICENSE) para obtener detalles completos.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+### Resumen de la Licencia
+
+La Licencia Pública General de GNU, versión 3.0 (GNU GPL-3.0), es una  licencia de código abierto que garantiza la libertad de uso,  modificación y distribución del software bajo los términos estipulados  en la licencia. Requiere que cualquier software derivado se distribuya  bajo los mismos términos de la GPL-3.0. Consulta el archivo [LICENSE](https://github.com/danunziata/pps_fede_Ferro_2024/blob/main/LICENSE) para más información sobre los términos y condiciones.
+
+### Aviso de Copyright
+
+El aviso de copyright para este proyecto se encuentra detallado en el archivo [LICENSE](https://github.com/danunziata/pps_fede_Ferro_2024/blob/main/LICENSE).
+
+<p align="right">(<a href="#readme-top">Volver al Inicio</a>)</p>
 
 
 
 <!-- CONTACT -->
-## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+## Contacto
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Federico Rodriguez Ferro - federico@rodriguezferro.com.ar
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Link del Proyecto: [https://github.com/danunziata/pps_fede_Ferro_2024](https://github.com/danunziata/pps_fede_Ferro_2024)
+
+<p align="right">(<a href="#readme-top">Volver al Inicio</a>)</p>
 
 
 
