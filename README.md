@@ -23,7 +23,7 @@
 <br />
 
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/danunziata/pps_fede_Ferro_2024">
     <img src="docs/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 <h3 align="center">PPS Federico Rodriguez Ferro</h3>
@@ -80,8 +80,8 @@ Para lograr esto, se plantean objetivos  específicos como familiarizarse con la
 
 ### Componentes
 
-* [![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)][https://kubernetes.io ]
-* [![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=black)][https://www.python.org/ ]
+* [![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io)
+* [![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=black)](https://www.python.org/)
 
 <p align="right">(<a href="#readme-top">Volver al Inicio</a>)</p>
 
