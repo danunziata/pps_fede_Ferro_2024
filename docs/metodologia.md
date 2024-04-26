@@ -125,14 +125,14 @@ La forma en que aplicaremos los commits están reglamentados en la especificaci�
 
 Los tipos mas utilizados y que se emplearan en este trabajo son:
 
-- **feat**: representa una nueva funcionalidad o un cambio significativo.
-- **fix**: representa correcciones pequeñas o arreglos insignificantes.
+- **feat(tema de la modificación): Breve explicación**: Para cambios significativos o nuevas características.
+- **fix(tema de la modificación): Breve explicación**: Para correcciones pequeñas.
+- **chore(tema de la modificación): Breve explicación**: Para cambios menores insignificantes para el usuario.
+- **docs: Breve explicación**: Para cambios que se realizan a la documentación.
 
-El enfoque consiste en un sustantivo que describe la seccion que representa el commit.
+El enfoque consiste en un sustantivo que describe la sección que representa el commit. Y por ultimo una pequeña descripción que resume los cambios realizados en el repositorio.
 
-Y por ultimo una pequeña descripcion que resume los cambios realizados en el repositorio.
-
-Posteriormente se puede usar otras características que nos ayudan a distinguir de una mejor manera los commits, pero lo mencionado anteriormente regula lo basico y representara lo que se va a utilizar en la actual practica.
+Posteriormente se puede usar otras características que nos ayudan a distinguir de una mejor manera los commits, pero lo mencionado anteriormente regula lo básico y representara lo que se va a utilizar en la actual practica.
 
 ## README
 
