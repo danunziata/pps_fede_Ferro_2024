@@ -143,20 +143,20 @@ Para ejemplos e información, por favor diríjase a la [Documentación](https://
 
 El proceso que seguiremos implica utilizar la rama `main` como la rama de **producción** del proyecto. Cualquier nueva funcionalidad o corrección de errores se realizará creando nuevas ramas.
 
-Para incorporar una función en la rama `main`,  simplemente se crea un "PR" (Pull Request), que deberá ser aprobado por  algún colaborador, cualquier colaborador puede hacerlo, o bien, si no  requiere revisión, puede ser aceptado por quien esté incluyendo la  funcionalidad.
+Para incorporar una función en la rama `main`,  simplemente se crea un "PR" (Pull Request), que deberá ser aprobado por algún colaborador, cualquier colaborador puede hacerlo, o bien, si no  requiere revisión, puede ser aceptado por quien esté incluyendo la  funcionalidad.
 
-Es crucial que el nombre de las ramas creadas sea lo más descriptivo  posible. Por ejemplo, si trabajamos en una nueva funcionalidad  relacionada con la API, la rama se debe llamar `feature-api`. En el caso de tratarse de la corrección de un error en el código de la API, la llamaremos `fix-api`.
+Es crucial que el nombre de las ramas creadas sea lo más descriptivo  posible. Por ejemplo, si trabajamos en una nueva funcionalidad  relacionada con la API, la rama se debe llamar como referencia a la funcionalidad en cuestión. En el caso de tratarse de la corrección de un error en el código de la API, la llamaremos `fix-api`.
 
-Además, se contarán con ramas específicas para la documentación del proyecto denominada `docs`, esta rama sera utilizada para registrar toda la documentacion ya sea de la carpeta `docs` o el mismo `README.md`.
+Además, se contarán con ramas específicas para la documentación del proyecto denominada `docs`, esta rama sera utilizada para registrar toda la documentación ya sea de la carpeta `docs` o el mismo `README.md`.
 
-Los pasos para contribuir en este proyecto son:
+Los pasos para contribuir en este proyecto como miembro del mismo son:
 
-1. Forkear el Proyecto
+1. Clonar el repositorio (`git clone`)
 2. Crear una nueva rama para la función (`git checkout -b feature/AmazingFeature`)
 3. Publicar la rama en el repositorio remoto(`git push --set-upstream origin <nombre-de-la-nueva-rama>`)
 4. Commit los cambios (`git commit -m 'Add some AmazingFeature'`)
 5. Push a la rama (`git push origin feature/AmazingFeature`)
-6. Abrir un Pull Request
+6. Abrir un Pull Request dirigido a la rama `develop`
 
 <p align="right">(<a href="#readme-top">Volver al Inicio</a>)</p>
 
