@@ -147,6 +147,8 @@ Para incorporar una función en la rama `main`,  simplemente se crea un "PR" (Pu
 
 Es crucial que el nombre de las ramas creadas sea lo más descriptivo  posible. Por ejemplo, si trabajamos en una nueva funcionalidad  relacionada con la API, la rama se debe llamar `feature-api`. En el caso de tratarse de la corrección de un error en el código de la API, la llamaremos `fix-api`.
 
+Además, se contarán con ramas específicas para la documentación del proyecto denominada `docs`, esta rama sera utilizada para registrar toda la documentacion ya sea de la carpeta `docs` o el mismo `README.md`.
+
 Los pasos para contribuir en este proyecto son:
 
 1. Forkear el Proyecto
