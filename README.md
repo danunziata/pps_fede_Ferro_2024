@@ -106,7 +106,7 @@ Acá se listan todo lo que se debe descargar para luego poder instalar y hacer f
   ```bash
   python3 -m venv venv #Crea un nuevo entorno virtual donde se guardan todas las librerias a utilizar
   source venv/bin/activate
-  pip install requirements.txt
+  pip install -r requirements.txt
   ```
 
   
