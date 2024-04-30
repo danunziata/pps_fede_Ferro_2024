@@ -10,7 +10,7 @@ No te sorprendas si no encuentras este acrónimo, es más conocido como Grafana 
 
 **Loki** se construye sobre los mismos principios de diseño que Prometheus, por lo tanto, es una buena opción para almacenar y analizar los registros de Kubernetes.
 
-![PLG Stack](/home/fede/pps_fede_Ferro_2024/docs/images/plg-stack.png)
+![PLG Stack](images/plg-stack.png)
 
 ### Componentes
 
@@ -26,54 +26,64 @@ Algunos de los terminos basicos utilizados son:
 
 Una vez que el chunk "se llena", lo volcamos en la base de datos.
 
-![Base de Datos](/home/fede/pps_fede_Ferro_2024/docs/images/database.png)
+![Base de Datos](images/database.png)
 
 ### Arquitectura
 
 ![Arquitectura de registros](/home/fede/pps_fede_Ferro_2024/docs/images/arquitectura.png)
 
-### Instalación
+## FluentBit
 
-Creamos un namespace para desplegar el stack PLG:
+Fluent Bit es una navaja suiza de código abierto y multiplataforma para procesamiento y distribución de registros. En la actualidad, los datos provienen de diversas fuentes y Fluent Bit está aquí para ayudarte a agregar y procesar todos tus datos de manera confiable, segura y flexible.
+
+Fluent Bit se basa en algunos conceptos fundamentales que son muy importantes para entender cómo funciona.
+
+### Conceptos Claves
+
+- Evento o Registro: términos intercambiables que se refieren a cada pieza de datos que es recuperada por Fluent Bit.
+- Etiqueta: Una Etiqueta se especifica manualmente (en la mayoría de los casos) en la configuración del Plugin de Entrada y es utilizada por el Enrutador para identificar información y determinar a través de qué Filtro o Salida debe pasar la información.
+- Coincidencia: Cuando hablamos de Etiquetas, dijimos que una Etiqueta es utilizada por el Enrutador para identificar información y decidir dónde enviarla. Una Coincidencia es cómo el enrutador sabe quién debe recibir la información. Los Enrutadores entregan la información a quien tenga una Coincidencia que coincida con la propiedad de configuración especificada Etiqueta en el plugin de entrada. Coincidencia es una propiedad de configuración presente en la configuración de Filtros y Plugins de Salida.
+- Mensajes Estructurados: Ya sean estructurados o no, cada Evento que es manejado por Fluent Bit se convierte en un mensaje estructurado, mediante el formato de datos MessagePack. Los mensajes estructurados ayudan a Fluent Bit a implementar operaciones más rápidas.
+
+### Pipeline
+
+Ahora que conocemos los conceptos clave de Fluent Bit y el mecanismo de almacenamiento en búfer, debes estar preguntándote "pero ¿cómo funciona todo internamente?"
+
+Trabajando como un agregador y reenviador de registros, Fluent Bit tiene su propia forma de recuperar, organizar, modificar y reenviar toda la información que maneja.
+
+Este proceso se llama Tubería de Datos, que es un camino por el cual toda la información recuperada por los Plugins de Entrada de Fluent Bit debe pasar.
+
+Nos referiremos a cada parte de esta tubería como etapas.
+
+![pipeline](images/pipeline.png)
+
+## Instalación
+
+Aquí tienes una versión mejorada:
+
+---
+
+Para instalar la estructura de monitoreo de logs, simplemente descarga el script `loki-setup.sh` ubicado en la carpeta `/src/dev` de nuestro repositorio en GitHub. Asegúrate de otorgarle los permisos de ejecución adecuados antes de proceder con la instalación.
 
 ```bash
-kubectl create namespace loki
+sudo chmod +x loki-setup.sh
+./loki-setup.sh
 ```
 
-Utilizamos helm para descargar Grafana
-
-```bash
-helm repo add grafana <https://grafana.github.io/helm-charts>
-```
-
-Actualizamos el repositorio local en caso de que haya alguna actualización
-
-```bash
-helm repo update
-```
-
-Desplegamos el Stack PLG
-
-```bash
-helm upgrade --install loki loki/loki-stack --namespace=loki --set grafana.enabled=true
-```
-
-Obtenemos la contraseña
-
-```bash
-kubectl get secret loki-grafana --namespace=loki -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
-```
-
-Exponemos el puerto para ingresar a Grafana de forma local
+Una vez completada la instalación, puedes acceder a Grafana de forma local mediante el siguiente comando:
 
 ```bash
 kubectl port-forward --namespace loki service/loki-grafana 3000:80
 ```
 
-Podemos ingresar a Grafana entrando a http://localhost:3000. Ingresando con el usuario **admin** y la contraseña obtenida anteriormente
+Después de ejecutar este comando, podrás ingresar a Grafana a través de tu navegador web favorito, utilizando la dirección http://localhost:3000. Utiliza las credenciales de inicio de sesión proporcionadas anteriormente, con el usuario **admin** y la contraseña que obtuviste durante el proceso de instalación.
 
-### Referencias
+## Referencias
 
 https://www.infracloud.io/blogs/logging-in-kubernetes-efk-vs-plg-stack/
 
 https://codersociety.com/blog/articles/loki-kubernetes-logging
+
+https://faun.pub/fluent-bit-a-brief-introduction-3a9044312fe3
+
+https://artifacthub.io/packages/helm/grafana/loki-stack
