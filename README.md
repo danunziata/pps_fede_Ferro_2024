@@ -103,10 +103,19 @@ Acá se listan todo lo que se debe descargar para luego poder instalar y hacer f
 
 - Instalar las librerias necesarias
 
-  ```bash
+  ```sh
   python3 -m venv venv #Crea un nuevo entorno virtual donde se guardan todas las librerias a utilizar
   source venv/bin/activate
-  pip install requirements.txt
+  pip install -r requirements.txt
+  ```
+
+
+- Helm
+
+  ```sh
+  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+  sudo chmod 700 get_helm.sh
+  ./get_helm.sh
   ```
 
   

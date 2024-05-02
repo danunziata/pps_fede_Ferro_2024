@@ -108,10 +108,19 @@ Aquí se observa una estructura básica que puede representar un proyecto. Habit
 
 ### Estructura Actual
 
+Debido a nuestra metodología de trabajo, que consiste en dividir nuestro proyecto en distintas áreas de aplicación, hemos decidido organizar nuestro código fuente según la arquitectura que se utilice en cada momento. Por lo tanto, utilizaremos tres carpetas principales: `dev`,` lab` y `prd`. 
+
+La carpeta `dev` contendrá el código fuente en desarrollo, donde se realizarán cambios, pruebas y mejoras continuas. En `lab` se ubicará el código fuente en fase de pruebas y validaciones, llevando a cabo pruebas exhaustivas antes de desplegar la aplicación en un entorno de producción. Por último, en `prd` residirá el código fuente que está en producción, es decir, disponible para los usuarios finales, garantizando su estabilidad y funcionamiento óptimo.
+
+Esta estructura organizativa nos permite mantener un flujo de trabajo eficiente y ordenado, facilitando la gestión y el mantenimiento del código en cada etapa del ciclo de desarrollo del software. Además, proporciona una clara separación entre los diferentes entornos, lo que contribuye a la estabilidad y seguridad de nuestras implementaciones.
+
 ```
 pps_fede_Ferro_2024/
 ├── docs/                 # Documentacion del Proyecto
 ├── src/                  # Contiene todo el código del Proyecto
+	 |── dev/			  # Codigo perteneciente a Desarrollo
+	 |── lab/			  # Codigo perteneciente a Laboratorio
+	 |── prd/			  # Codigo perteneciente a Producción
 ├── README.md             # Previsualización del Proyecto
 ```
 
