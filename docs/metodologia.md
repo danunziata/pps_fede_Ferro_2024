@@ -175,3 +175,32 @@ Mientras que la mayoría de los equipos estiman la dificultad de una tarea por t
 Los desarrolladores usan una sucesión de Fibonacci: 0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100, como una métrica para medir los puntos de historia con el fin de obligar a los equipos a tomar decisiones claras. Por ejemplo, si tienes que completar un proyecto y alguien te pregunta  si te llevará 3 o 4 horas, puedes dudar sobre cómo responder porque la  diferencia es tan pequeña que es difícil de adivinar. En cambio, si  alguien te preguntara si te llevará 3 o 6 horas, probablemente tu  respuesta sería mucho más clara.
 
 ![Fibonacci](images/fibonacci.png)
+
+## Diagramas
+
+A la hora de hacer los diagramas, exploramos cómo las representaciones visuales, como diagramas y gráficos, pueden ser creadas, versionadas y gestionadas utilizando prácticas y herramientas similares a las que se emplean en el desarrollo de software. Esta convergencia entre la visualización y el código ofrece ventajas significativas en términos de colaboración, automatización y mantenimiento en entornos de desarrollo de software y operaciones de infraestructura. El principal beneficio de utilizar este concepto es que la mayoría de las herramientas de Diagramas como Código pueden ser guionizadas e integradas en un pipeline de construcción para generar documentación automática. 
+
+En este caso hablaremos de la plataforma [Diagrams](https://diagrams.mingrammer.com/) que te permite dibujar la arquitectura de sistemas en la nube mediante código Python, lo que te permite rastrear tu diagrama en cualquier SCM (sistema de control de versiones). Admite importantes proveedores como AWS, Azure, GCP, Kubernetes, OpenStack, Oracle Cloud, etc., pero también admite la representación de infraestructura local.
+
+Para poder instalarlo necesitaremos instalar la librería
+
+```sh
+pip install diagrams
+```
+
+Para posteriormente integrarlos en nuestros archivos de python, aquí se observa un pequeño ejemplo
+
+```python
+from diagrams import Diagram
+from diagrams.k8s.clusterconfig import HPA
+from diagrams.k8s.compute import Deployment, Pod, ReplicaSet
+from diagrams.k8s.network import Ingress, Service
+
+with Diagram("Exposed Pod with 3 Replicas", show=False):
+    net = Ingress("domain.com") >> Service("svc")
+    net >> [Pod("pod1"),
+            Pod("pod2"),
+            Pod("pod3")] << ReplicaSet("rs") << Deployment("dp") << HPA("hpa")
+```
+
+![exposed pod with 3 replicas diagram](https://diagrams.mingrammer.com/img/exposed_pod_with_3_replicas_diagram.png)
