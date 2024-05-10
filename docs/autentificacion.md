@@ -99,4 +99,61 @@ export POD_NAME=$(kubectl get pods --namespace monitoring -l "app.kubernetes.io/
 kubectl --namespace monitoring port-forward $POD_NAME 3000
 ```
 
-ingresamos con el localhost:3000 y se vera en funcionamiento	
+ingresamos con el localhost:3000 y se vera en funcionamiento
+
+### Integración con la plataforma de Monitoreo
+
+Para lograr el mismo resultado llegado en la seccion anterior pero con la utilizacion de nuestra ya implementada plataforma de monitoreo. Utilizaremos el script `authentication.sh` que se encuentra en `src/dev` que se encargara de la instalacion de Authentik.
+
+Una vez creado toda la configuracion de nuestro proveedor y aplicacion, instalamos nuestro stack de monitoreo ejecutando `monitoring.sh`.
+
+En este caso la configuracion tiene que ser colocado en el configmap `ConfigMap-grafana.yaml` que tendra este formato:
+
+```yaml
+  data:
+    grafana.ini: |
+      [analytics]
+      check_for_updates = true
+      [grafana_net]
+      url = https://grafana.net
+      [log]
+      mode = console
+      [paths]
+      data = /var/lib/grafana/
+      logs = /var/log/grafana
+      plugins = /var/lib/grafana/plugins
+      provisioning = /etc/grafana/provisioning
+      [server]
+      domain = localhost
+      [auth]
+      signout_redirect_url = https://authentik.company/application/o/<Slug of the application from above>/end-session/
+      oauth_auto_login = true
+      [auth.generic_oauth]
+      name = authentik
+      enabled = true
+      client_id = <Client ID from above>
+      client_secret = <Client Secret from above>
+      scopes = openid email profile
+      auth_url = https://authentik.company/application/o/authorize/
+      token_url = https://authentik.company/application/o/token/
+      api_url = https://authentik.company/application/o/userinfo/
+      role_attribute_path = contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
+      tls_skip_verify_insecure = true
+      [security]
+      cookie_samesite = none
+      cookie_secure = false
+```
+
+Esta informacion tiene que ser colocada en el configmap que se encuentra en el cluster por lo tanto lo editaremos el configmap y pondremos lo escrito anteriormente:
+
+```sh
+kubectl edit cm loki-grafana -n loki
+```
+
+Tenemos que borrar el pod para que la configuracion se ejecute
+
+```sh
+kubectl delete pod <nombre del pod> -n loki
+```
+
+Veremos el resultado final ingresando a http::/localhost:3000
