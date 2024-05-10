@@ -82,6 +82,7 @@ Para lograr esto, se plantean objetivos  específicos como familiarizarse con la
 
 * [![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io)
 * [![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=black)](https://www.python.org/)
+* [![Helm](https://img.shields.io/badge/Helm-0F1689?style=for-the-badge&logo=helm&logoColor=white)](https://helm.sh/)
 
 <p align="right">(<a href="#readme-top">Volver al Inicio</a>)</p>
 
