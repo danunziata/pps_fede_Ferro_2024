@@ -1,11 +1,11 @@
 #!/bin/bash
+
 echo -e "\n"
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 
-minikube start --driver=kvm2
 kubectl create namespace loki
-helm upgrade --install loki grafana/loki-stack --namespace=loki --values values-loki-stack.yaml
+helm upgrade --install loki grafana/loki-stack --namespace=loki --values values/lokistack-values.yaml
 echo -e "\n"
 echo -e "This might take a few minutes...\n"
 sleep 120
