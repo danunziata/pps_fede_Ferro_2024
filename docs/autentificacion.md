@@ -137,7 +137,7 @@ En este caso la configuracion tiene que ser colocado en el configmap `ConfigMap-
       auth_url = https://authentik.company/application/o/authorize/
       token_url = https://authentik.company/application/o/token/
       api_url = https://authentik.company/application/o/userinfo/
-      role_attribute_path = contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
+      role_attribute_path = contains(groups, 'authentik Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
       tls_skip_verify_insecure = true
       [security]
       cookie_samesite = none
