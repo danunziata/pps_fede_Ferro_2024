@@ -12,12 +12,12 @@ kubectl apply -f pvc.yaml
 
 export MINIKUBEIP=$(minikube ip)
 
-sleep(2)
+sleep 2
 
 envsubst < configmap.yaml | kubectl apply -f -
 
 kubectl apply -f service.yaml
 
-sleep(2)
+sleep 2
 
 kubectl apply -f deployment.yaml
