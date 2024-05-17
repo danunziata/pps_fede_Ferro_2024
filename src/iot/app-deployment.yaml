@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    app: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: mocksensor
+          image: mocksensor:latest
+          imagePullPolicy: Never # or IfNotPresent
+          volumeMounts:
+            - mountPath: /tmp
+              name: telegrafinput-claim1
+      volumes:
+        - name: telegrafinput-claim1
+          persistentVolumeClaim:
+            claimName: telegrafinput-claim1

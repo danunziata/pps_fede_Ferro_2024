@@ -1,0 +1,272 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    app: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: mocksensor
+          image: mocksensor:latest
+          imagePullPolicy: Never # or IfNotPresent
+          volumeMounts:
+            - mountPath: /tmp
+              name: telegrafinput-claim1
+      volumes:
+        - name: telegrafinput-claim1
+          persistentVolumeClaim:
+            claimName: telegrafinput-claim1
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegrafinput
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  labels:
+    io.kompose.service: telegrafinput
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: telegrafinput
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      labels:
+        io.kompose.service: telegrafinput
+    spec:
+      containers:
+        - name: telegrafinput
+          image: telegraf:1.22.4
+          volumeMounts:
+            - mountPath: /etc/telegraf
+              name: config-volume
+            - mountPath: /tmp
+              name: telegrafinput-claim1
+      restartPolicy: Always
+      volumes:
+        - name: config-volume
+          configMap:
+            name: telegraf-config-input
+        - name: telegrafinput-claim1
+          persistentVolumeClaim:
+            claimName: telegrafinput-claim1
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emqx-deployment
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  labels:
+    io.kompose.service: emqx  
+spec:
+  selector:
+    matchLabels:
+      io.kompose.service: emqx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      labels:
+        io.kompose.service: emqx
+    spec:
+      containers:
+      - name: emqx
+        image: emqx:4.4.3
+        ports:
+        - name: dashboard
+          containerPort: 18083
+        - name: mqtt
+          containerPort: 1883
+        env:
+          - name: EMQX_DASHBOARD__DEFAULT_USER__LOGIN
+            value: iot
+          - name: EMQX_DASHBOARD__DEFAULT_USER__PASSWORD
+            value: iot
+        volumeMounts:
+          - mountPath: /opt/emqx/data
+            name: emqx0
+          - mountPath: /opt/emqx/log
+            name: emqx1
+      restartPolicy: Always
+      volumes:
+        - name: emqx0
+          persistentVolumeClaim:
+            claimName: emqx-claim0
+        - name: emqx1
+          persistentVolumeClaim:
+            claimName: emqx-claim1
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: telegrafoutput
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  labels:
+    io.kompose.service: telegrafoutput
+spec:
+  containers:
+    - image: telegraf:1.22.4
+      name: telegrafoutput
+      volumeMounts:
+        - mountPath: /etc/telegraf
+          name: config-volume2
+  restartPolicy: OnFailure
+  volumes:
+    - name: config-volume2
+      configMap:
+        name: telegraf-config-output
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  labels:
+    io.kompose.service: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: influxdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      labels:
+        io.kompose.service: influxdb
+    spec:
+      containers:
+      - name: influxdb
+        image: influxdb:2.2.0-alpine
+        env:
+        - name: DOCKER_INFLUXDB_INIT_MODE
+          value: setup
+        - name: DOCKER_INFLUXDB_INIT_USERNAME
+          value: manolo
+        - name: DOCKER_INFLUXDB_INIT_PASSWORD
+          value: iotcrashcourse
+        - name: DOCKER_INFLUXDB_INIT_ORG
+          value: manolotech
+        - name: DOCKER_INFLUXDB_INIT_BUCKET
+          value: iotdata
+        - name: DOCKER_INFLUXDB_INIT_RETENTION
+          value: 1w
+        - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+          value: manolotech-iotdata-auth-token
+        ports:
+        - name: http-influx
+          containerPort: 8086
+        volumeMounts:
+          - mountPath: /var/lib/influxdb2
+            name: influxdb-claim0
+          - mountPath: /etc/influxdb2
+            name: influxdb-claim1
+      restartPolicy: Always
+      volumes:
+        - name: influxdb-claim0
+          persistentVolumeClaim:
+            claimName: influxdb-claim0
+        - name: influxdb-claim1
+          persistentVolumeClaim:
+            claimName: influxdb-claim1
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana
+  name: grafana
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: grafana/grafana:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http-grafana
+              containerPort: 3000
+              protocol: TCP
+          env:
+          - name: GF_SECURITY_ADMIN_USER
+            value: fede
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            value: fede
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /robots.txt
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 3000
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 250m
+              memory: 750Mi
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-pv
+      restartPolicy: Always
+      volumes:
+        - name: grafana-pv
+          persistentVolumeClaim:
+            claimName: grafana-pvc

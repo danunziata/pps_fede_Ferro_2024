@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: telegraf-config-output
+data:
+ telegraf.conf: |
+  [global_tags]
+    project = "iotcrashcourse"
+
+  [agent]
+    interval = "10s"
+    round_interval = true
+    metric_batch_size = 1000
+    metric_buffer_limit = 10000
+    collection_jitter = "0s"
+    flush_interval = "10s"
+    flush_jitter = "0s"
+    precision = "0s"
+    hostname = "telegrafoutput"
+    omit_hostname = false
+
+  [[inputs.mqtt_consumer]]
+    servers = ["192.168.39.91:31236"]
+    topics = [
+      "telegraf/telegrafinput/#"
+    ]
+    qos = 2
+
+  [[outputs.influxdb_v2]]
+    urls = ["http://192.168.39.91:32225"]
+    token = "manolotech-iotdata-auth-token"
+    organization = "manolotech"
+    bucket = "iotdata"

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emqx-deployment
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  labels:
+    io.kompose.service: emqx  
+spec:
+  selector:
+    matchLabels:
+      io.kompose.service: emqx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      labels:
+        io.kompose.service: emqx
+    spec:
+      containers:
+      - name: emqx
+        image: emqx:4.4.3
+        ports:
+        - name: dashboard
+          containerPort: 18083
+        - name: mqtt
+          containerPort: 1883
+        env:
+          - name: EMQX_DASHBOARD__DEFAULT_USER__LOGIN
+            value: iot
+          - name: EMQX_DASHBOARD__DEFAULT_USER__PASSWORD
+            value: iot
+        volumeMounts:
+          - mountPath: /opt/emqx/data
+            name: emqx0
+          - mountPath: /opt/emqx/log
+            name: emqx1
+      restartPolicy: Always
+      volumes:
+        - name: emqx0
+          persistentVolumeClaim:
+            claimName: emqx-claim0
+        - name: emqx1
+          persistentVolumeClaim:
+            claimName: emqx-claim1

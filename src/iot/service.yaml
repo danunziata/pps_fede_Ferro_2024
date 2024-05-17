@@ -1,0 +1,64 @@
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: emqx-service
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  labels:
+    io.kompose.service: emqx
+spec:
+  ports:
+    - name: dashboard
+      port: 18083
+      protocol: TCP
+      targetPort: 18083
+      nodePort: 31002
+    - name: mqtt
+      port: 1883
+      protocol: TCP
+      targetPort: 1883
+      nodePort: 31003
+  selector:
+    io.kompose.service: emqx
+  type: LoadBalancer
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  labels:
+    io.kompose.service: influxdb
+spec:
+  ports:
+    - name: "8086"
+      port: 8086
+      targetPort: 8086
+      nodePort: 31001
+  selector:
+    io.kompose.service: influxdb
+  type: LoadBalancer
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: 3000
+      nodePort: 31000
+  selector:
+    app: grafana
+  sessionAffinity: None
+  type: LoadBalancer

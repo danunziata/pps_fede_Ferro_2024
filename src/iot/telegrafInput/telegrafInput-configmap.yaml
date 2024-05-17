@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: telegraf-config-input
+data:
+ telegraf.conf: |
+  [global_tags]
+  project = "iotcrashcourse"
+
+  [agent]
+    interval = "10s"
+    round_interval = true
+    metric_batch_size = 1000
+    metric_buffer_limit = 10000
+    collection_jitter = "0s"
+    flush_interval = "10s"
+    flush_jitter = "0s"
+    precision = "0s"
+    hostname = "telegrafinput"
+    omit_hostname = false
+
+  [[inputs.tail]]
+    files = ["/tmp/ouput_mock_sensor.json"]
+    data_format = "json"
+
+    tag_keys = [
+      "device_id",
+      "client_id"
+    ]
+
+    json_name_key = "sensor_type"
+    json_time_key = "timestamp"
+    json_time_format = "unix"
+
+
+  [[outputs.mqtt]]
+    servers = ["192.168.39.91:31236"]
+    topic_prefix = "telegraf"
+    qos = 2
+    data_format = "influx"
+    retain = true
