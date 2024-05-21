@@ -74,6 +74,6 @@ data:
 
   [[outputs.influxdb_v2]]
     urls = ["http://${MINIKUBEIP}:31001"]
-    token = "manolotech-iotdata-auth-token"
-    organization = "manolotech"
+    token = "labredes-iotdata-auth-token"
+    organization = "labredes"
     bucket = "iotdata"
