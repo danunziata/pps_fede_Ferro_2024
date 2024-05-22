@@ -20,6 +20,8 @@ spec:
         - name: mocksensor
           image: mocksensor:latest
           imagePullPolicy: Never # or IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
           volumeMounts:
             - mountPath: /tmp
               name: telegrafinput-claim
@@ -51,6 +53,8 @@ spec:
       containers:
         - name: telegrafinput
           image: telegraf:1.22.4
+          securityContext:
+            allowPrivilegeEscalation: false
           volumeMounts:
             - mountPath: /etc/telegraf
               name: config-volume
@@ -94,9 +98,17 @@ spec:
           containerPort: 1883
         env:
           - name: EMQX_DASHBOARD__DEFAULT_USER__LOGIN
-            value: iot
+            valueFrom:
+              secretKeyRef:
+                name: credenciales
+                key: user
           - name: EMQX_DASHBOARD__DEFAULT_USER__PASSWORD
-            value: iot
+            valueFrom:
+              secretKeyRef:
+                name: credenciales
+                key: password
+        securityContext:
+          allowPrivilegeEscalation: false
         volumeMounts:
           - mountPath: /opt/emqx/data
             name: emqx0
@@ -123,6 +135,8 @@ spec:
   containers:
     - image: telegraf:1.22.4
       name: telegrafoutput
+      securityContext:
+        allowPrivilegeEscalation: false
       volumeMounts:
         - mountPath: /etc/telegraf
           name: config-volume2
@@ -159,9 +173,15 @@ spec:
         - name: DOCKER_INFLUXDB_INIT_MODE
           value: setup
         - name: DOCKER_INFLUXDB_INIT_USERNAME
-          value: manolo
+          valueFrom:
+            secretKeyRef:
+              name: credenciales
+              key: user
         - name: DOCKER_INFLUXDB_INIT_PASSWORD
-          value: iotcrashcourse
+          valueFrom:
+            secretKeyRef:
+              name: credenciales
+              key: password
         - name: DOCKER_INFLUXDB_INIT_ORG
           value: labredes
         - name: DOCKER_INFLUXDB_INIT_BUCKET
@@ -173,6 +193,8 @@ spec:
         ports:
         - name: http-influx
           containerPort: 8086
+        securityContext:
+          allowPrivilegeEscalation: false
         volumeMounts:
           - mountPath: /var/lib/influxdb2
             name: influxdb-claim0
@@ -216,9 +238,15 @@ spec:
               protocol: TCP
           env:
           - name: GF_SECURITY_ADMIN_USER
-            value: fede
+            valueFrom:
+              secretKeyRef:
+                name: credenciales
+                key: user
           - name: GF_SECURITY_ADMIN_PASSWORD
-            value: fede
+            valueFrom:
+              secretKeyRef:
+                name: credenciales
+                key: password
           readinessProbe:
             failureThreshold: 3
             httpGet:
@@ -237,6 +265,8 @@ spec:
             tcpSocket:
               port: 3000
             timeoutSeconds: 1
+          securityContext:
+            allowPrivilegeEscalation: false
           resources:
             requests:
               cpu: 250m
