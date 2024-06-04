@@ -7,6 +7,18 @@ site_author: Rodriguez Ferro Federico
 repo_url: https://github.com/danunziata/pps_fede_Ferro_2024
 repo_name: danunziata/pps_fede_Ferro_2024
 
+nav:
+  - Introducción: index.md
+  - Conceptos: contexto.md
+  - Instalación: instalacion.md
+  - Administración: lens.md
+  - Autentificación: autentificacion.md
+  - Seguridad: seguridad.md
+  - Monitoreo: monitoreo.md
+  - Escaneo: scanning.md
+  - Metodologia de Trabajo: metodologia.md
+  - Contribución: contributing.md
+
 # Design
 theme:
   name: material
