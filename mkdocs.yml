@@ -12,12 +12,14 @@ nav:
   - Conceptos: contexto.md
   - Instalación: instalacion.md
   - Administración: lens.md
-  - Autentificación: autentificacion.md
-  - Seguridad: seguridad.md
-  - Monitoreo: monitoreo.md
-  - Escaneo: scanning.md
-  - Metodologia de Trabajo: metodologia.md
-  - Contribución: contributing.md
+  - Seguridad:
+    - Autentificación: seguridad/autentificacion.md
+    - Seguridad: seguridad/seguridad.md
+    - Monitoreo: seguridad/monitoreo.md
+    - Escaneo: seguridad/scanning.md
+  - Proyecto:
+    - Metodologia de Trabajo: proyecto/metodologia.md
+    - Contribución: proyecto/contributing.md
 
 # Design
 theme:
@@ -27,6 +29,11 @@ theme:
     repo: fontawesome/brands/github
   
   language: es
+
+  features:
+    - navigation.sections
+    - navigation.path
+    - navigation.top
   
 
   palette: 
