@@ -31,7 +31,7 @@ Scrum ofrece una estructura ligera con las tres funciones de scrum: miembro del 
 
 Los objetivos SMART son específicos, mensurables, alcanzables, relevantes y temporales. Son metas concretas que permiten analizar el desempeño de nuestros esfuerzos, ya sea en marketing o en cualquier área de una empresa que requiera ordenar y medir su trabajo de manera sistemática.
 
-![objetivos smart](images/smart-mk.jpg)
+![objetivos smart](../images/smart-mk.jpg)
 
 Aplicar los objetivos SMART en proyectos y negocios ayuda a avanzar con más seguridad y con mayor control sobre el proceso. Definir los objetivos SMART te ayudará a enfocar tus esfuerzos en tus metas de una manera inteligente. Por esta razón, se trata de una herramienta que contribuye a una mayor productividad y eficiencia y reduce el estrés laboral, al distribuir mejor los recursos y el tiempo.
 
@@ -174,7 +174,7 @@ Mientras que la mayoría de los equipos estiman la dificultad de una tarea por t
 
 Los desarrolladores usan una sucesión de Fibonacci: 0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100, como una métrica para medir los puntos de historia con el fin de obligar a los equipos a tomar decisiones claras. Por ejemplo, si tienes que completar un proyecto y alguien te pregunta  si te llevará 3 o 4 horas, puedes dudar sobre cómo responder porque la  diferencia es tan pequeña que es difícil de adivinar. En cambio, si  alguien te preguntara si te llevará 3 o 6 horas, probablemente tu  respuesta sería mucho más clara.
 
-![Fibonacci](images/fibonacci.png)
+![Fibonacci](../images/fibonacci.png)
 
 ## Diagramas
 

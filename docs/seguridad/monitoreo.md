@@ -10,7 +10,7 @@ No te sorprendas si no encuentras este acrónimo, es más conocido como Grafana 
 
 **Loki** se construye sobre los mismos principios de diseño que Prometheus, por lo tanto, es una buena opción para almacenar y analizar los registros de Kubernetes.
 
-![PLG Stack](images/plg-stack.png)
+![PLG Stack](../images/plg-stack.png)
 
 ### Componentes
 
@@ -26,11 +26,11 @@ Algunos de los terminos basicos utilizados son:
 
 Una vez que el chunk "se llena", lo volcamos en la base de datos.
 
-![Base de Datos](images/database.png)
+![Base de Datos](../images/database.png)
 
 ### Arquitectura
 
-![Arquitectura de registros](/home/fede/pps_fede_Ferro_2024/docs/images/arquitectura.png)
+![Arquitectura de registros](../images/arquitectura.png)
 
 ## FluentBit
 
@@ -55,7 +55,7 @@ Este proceso se llama Tubería de Datos, que es un camino por el cual toda la in
 
 Nos referiremos a cada parte de esta tubería como etapas.
 
-![pipeline](images/pipeline.png)
+![pipeline](../images/pipeline.png)
 
 ## Instalación
 
