@@ -12,11 +12,11 @@ Aquí hay 3 diferenciadores clave que distinguen a Lens:
 
 ## Capturas
 
-![captura](images/lens-1.png)
+![captura](../images/lens-1.png)
 
-![captura](images/lens-2.png)
+![captura](../images/lens-2.png)
 
-![captura](images/lens-3.png)
+![captura](../images/lens-3.png)
 
 Kubernetes es una plataforma compleja con capacidades en constante expansión, lo que la convierte en una solución poderosa para las empresas que se dirigen hacia la contenerización. Con su amplio conjunto de características y su panel de control fácil de usar, Lens proporciona un medio eficaz para simplificar la gestión multicloud tanto para desarrolladores nuevos como experimentados.
 
