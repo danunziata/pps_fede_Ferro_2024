@@ -10,13 +10,18 @@ repo_name: danunziata/pps_fede_Ferro_2024
 nav:
   - Introducción: index.md
   - Conceptos: contexto.md
-  - Instalación: instalacion.md
-  - Administración: lens.md
+  - Kubernetes:
+    - Instalación: kubernetes/instalacion.md
+    - Balanceador de Cargas: kubernetes/loadbalancer.md
+    - Acceso a Servicios: kubernetes/ingress.md
+    - Administración: kubernetes/lens.md
   - Seguridad:
     - Autentificación: seguridad/autentificacion.md
     - Seguridad: seguridad/seguridad.md
     - Monitoreo: seguridad/monitoreo.md
     - Escaneo: seguridad/scanning.md
+    - Certificación: seguridad/certificacion.md
+    - Copias de Seguridad: seguridad/backup.md
   - Proyecto:
     - Metodologia de Trabajo: proyecto/metodologia.md
     - Contribución: proyecto/contributing.md
