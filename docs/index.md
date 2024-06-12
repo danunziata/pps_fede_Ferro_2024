@@ -1,4 +1,4 @@
-# Seguridad en Kubernetes
+# Practicas Profesionales - Federico Rodriguez Ferro
 
 En un mundo cada vez más digitalizado, la seguridad de las infraestructuras tecnológicas se vuelve fundamental para garantizar el correcto funcionamiento de las operaciones empresariales. En este sentido, los entornos de contenedores, como Kubernetes, han emergido como una solución popular para gestionar aplicaciones en entornos distribuidos. Sin embargo, junto con su adopción, surgen desafíos relacionados con la seguridad y privacidad de los datos.
 
