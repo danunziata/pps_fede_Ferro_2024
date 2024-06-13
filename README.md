@@ -139,9 +139,9 @@ Para ejemplos e información, por favor diríjase a la [Documentación](https://
 
 ## Roadmap
 
-- [ ] Investigar la literatura existente sobre seguridad en entornos clusterizados utilizando contenedores y Kubernetes.
-- [ ] Desplegar un entorno de laboratorio local que permita realizar pruebas y experimentos.
-- [ ] Seleccionar, evaluar e implementar soluciones de seguridad específicas para Kubernetes, como Kubernetes Security Context, Network Policies, soluciones de monitoreo y observabilidad, entre otros.
+- [x] Investigar la literatura existente sobre seguridad en entornos clusterizados utilizando contenedores y Kubernetes.
+- [x] Desplegar un entorno de laboratorio local que permita realizar pruebas y experimentos.
+- [x] Seleccionar, evaluar e implementar soluciones de seguridad específicas para Kubernetes, como Kubernetes Security Context, Network Policies, soluciones de monitoreo y observabilidad, entre otros.
 - [ ] Desplegar un entorno de laboratorio remoto (producción) *y*  aplicar las medidas de seguridad seleccionadas al clúster de Kubernetes en producción , siguiendo las mejores prácticas recomendadas.
 - [ ] Realizar pruebas y evaluación de vulnerabilidades utilizando herramientas y metodologías seleccionadas en entorno de laboratorio productivo.
 - [ ] Documentar el proceso, las configuraciones, medidas de seguridad implementadas y los resultados de las pruebas realizadas.
