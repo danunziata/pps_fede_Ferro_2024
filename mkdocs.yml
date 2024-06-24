@@ -15,6 +15,7 @@ nav:
     - Balanceador de Cargas: kubernetes/loadbalancer.md
     - Acceso a Servicios: kubernetes/ingress.md
     - Administración: kubernetes/lens.md
+    - Service Mesh: kubernetes/servicemesh.md
   - Seguridad:
     - Autentificación: seguridad/autentificacion.md
     - Seguridad: seguridad/seguridad.md

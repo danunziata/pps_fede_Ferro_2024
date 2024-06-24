@@ -176,3 +176,64 @@ spec:
           port: <Puerto del Servicio>
 ```
 
+## Nginx Ingress Controller
+
+El NGINX Ingress Controller es una implementación del controlador de Ingress para NGINX y NGINX Plus que puede balancear la carga de aplicaciones WebSocket, gRPC, TCP y UDP. Soporta características estándar de Ingress como el enrutamiento basado en contenido y la terminación TLS/SSL. Varias características de NGINX y NGINX Plus están disponibles como extensiones a los recursos de Ingress a través de Anotaciones y el recurso ConfigMap.
+
+El NGINX Ingress Controller soporta los recursos VirtualServer y VirtualServerRoute como alternativas a Ingress, permitiendo la división del tráfico y el enrutamiento avanzado basado en contenido. También soporta el balanceo de carga de TCP, UDP y TLS Passthrough utilizando recursos TransportServer.
+
+El objetivo de este controlador de Ingress es la creación de un archivo de configuración (nginx.conf). La principal implicación de este requisito es la necesidad de recargar NGINX después de cualquier cambio en el archivo de configuración. Sin embargo, es importante destacar que no recargamos NGINX en cambios que solo afectan una configuración upstream (es decir, los cambios en los Endpoints cuando despliegas tu aplicación). Utilizamos lua-nginx-module para lograr esto. Consulta a continuación para aprender más sobre cómo se hace.
+
+### Instalación
+
+Agregamos el repositorio de Helm al equipo
+
+```sh
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm search repo ingress-nginx --versions
+```
+
+Procedemos a obtener el manifiesto en caso de querer tener un mejor analisis
+
+```sh
+helm template ingress-nginx ingress-nginx \
+--repo https://kubernetes.github.io/ingress-nginx \
+--namespace ingress-nginx \
+> nginx-ingress.yaml 
+```
+
+Desplegamos el controlador
+
+```sh
+kubectl create namespace ingress-nginx
+kubectl apply -f ./kubernetes/ingress/controller/nginx/manifests/nginx-ingress.${APP_VERSION}.yaml
+```
+
+Para pruebas, directamente exponemos un port-forwarding
+
+```sh
+kubectl -n ingress-nginx port-forward svc/ingress-nginx-controller 443
+```
+
+Para crear los ingress de distintos servicios a traves del ruteo por dominio usamos como template el siguiente yaml
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: <Nombre del Ingress>
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: <Dominio>
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: <Nombre del servicio a exponer>
+            port:
+              number: <Numero del puerto a exponer>
+```
+
