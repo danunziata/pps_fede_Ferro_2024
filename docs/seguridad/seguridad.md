@@ -329,3 +329,282 @@ kubectl apply -f mysealedsecret-ejemplo.yaml
 ```
 
 De esta forma el cluster desencripta el secret y lo coloca en el cluster de Kubernetes
+
+### Vault by Hashicorp
+
+HashiCorp Vault es una herramienta de gestión de secretos que se utiliza para controlar el acceso a secretos sensibles, como tokens de API, contraseñas, certificados y claves de cifrado. Aquí hay una breve descripción de cómo funciona Vault:
+
+1. **Almacenamiento Seguro de Secretos**: Vault permite almacenar secretos en un almacenamiento seguro y centralizado. Los secretos pueden ser estáticos (como contraseñas) o dinámicos (como tokens de acceso que expiran después de un tiempo).
+
+2. **Autenticación**: Los usuarios y aplicaciones deben autenticarse antes de acceder a los secretos. Vault admite múltiples métodos de autenticación, como LDAP, GitHub, tokens, y métodos de autenticación de nube como AWS IAM.
+
+3. **Control de Acceso**: Vault utiliza políticas para controlar quién puede acceder a qué secretos. Las políticas definen qué operaciones (lectura, escritura, borrado) están permitidas en qué caminos dentro del almacenamiento de secretos.
+
+4. **Rotación de Secretos**: Vault puede rotar automáticamente los secretos, como contraseñas de bases de datos, a intervalos regulares para mejorar la seguridad. Esto ayuda a minimizar el riesgo de exposición a largo plazo.
+
+5. **Auditoría**: Vault mantiene un registro de auditoría detallado de todas las operaciones que se realizan, proporcionando visibilidad y rastreo de acceso a los secretos.
+
+6. **Cifrado**: Todos los datos almacenados en Vault están cifrados tanto en tránsito como en reposo. Vault utiliza algoritmos de cifrado fuertes para proteger los datos sensibles.
+
+7. **Almacenamiento Dinámico de Credenciales**: Vault puede generar credenciales temporales bajo demanda para servicios como bases de datos y nubes. Esto reduce la necesidad de gestionar credenciales estáticas.
+
+8. **API**: Vault proporciona una API RESTful que permite a las aplicaciones interactuar con Vault para gestionar secretos de manera programática.
+
+#### Implementación
+
+Ejecutar Vault en Kubernetes es generalmente lo mismo que ejecutarlo en cualquier otro lugar. Kubernetes, como un motor de orquestación de contenedores, facilita algunas de las cargas operativas y los Helm charts proporcionan el beneficio de una interfaz refinada para desplegar Vault en una variedad de modos diferentes.
+
+Vault gestiona los secretos que se escriben en estos volúmenes montables. Para proporcionar estos secretos se requiere un único servidor de Vault. Para esta demostración, Vault puede ejecutarse en modo de desarrollo para manejar automáticamente la inicialización, el desbloqueo y la configuración de un motor de secretos KV.
+
+Agregar el repositorio de Helm de HashiCorp:
+
+```bash
+$ helm repo add hashicorp https://helm.releases.hashicorp.com
+"hashicorp" has been added to your repositories
+```
+
+Actualizar todos los repositorios para asegurar que Helm esté al tanto de las últimas versiones:
+
+```bash
+$ helm repo update
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "secrets-store-csi-driver" chart repository
+...Successfully got an update from the "hashicorp" chart repository
+Update Complete. ⎈Happy Helming!⎈
+```
+
+Para verificar, busca repositorios para vault en charts:
+
+```bash
+$ helm search repo hashicorp/vault
+NAME            CHART VERSION   APP VERSION DESCRIPTION
+hashicorp/vault 0.20.0          1.10.3      Official HashiCorp Vault Chart
+```
+
+Crea un archivo llamado helm-vault-raft-values.yml con el siguiente contenido:
+
+```bash
+$ cat > helm-vault-raft-values.yml <<EOF
+server:
+   affinity: ""
+   ha:
+      enabled: true
+      raft: 
+         enabled: true
+         setNodeId: true
+         config: |
+            cluster_name = "vault-integrated-storage"
+            storage "raft" {
+               path    = "/vault/data/"
+            }
+         listener "tcp" {
+           address = "[::]:8200"
+           cluster_address = "[::]:8201"
+           tls_disable = "true"
+        }
+        service_registration "kubernetes" {}
+EOF
+```
+
+Instalar la última versión del Helm chart de Vault con Almacenamiento Integrado:
+
+```bash
+$ helm install vault hashicorp/vault --values helm-vault-raft-values.yml
+```
+
+Esto crea tres instancias del servidor de Vault con un backend de almacenamiento integrado (Raft).
+
+Los pods de Vault y el pod de Vault Agent Injector se despliegan en el namespace `default`.
+
+Inicializa vault-0 con una clave compartida y un umbral de clave:
+
+```bash
+$ kubectl exec vault-0 -- vault operator init \
+    -key-shares=1 \
+    -key-threshold=1 \
+    -format=json > cluster-keys.json
+```
+
+El comando operator init genera una clave raíz que descompone en partes de clave -key-shares=1 y luego establece el número de partes de clave necesarias para desbloquear Vault -key-threshold=1. Estas partes de clave se escriben en la salida como claves de desbloqueo en formato JSON -format=json. Aquí la salida se redirige a un archivo llamado cluster-keys.json.
+
+Muestra la clave de desbloqueo encontrada en cluster-keys.json:
+
+```bash
+$ jq -r ".unseal_keys_b64[]" cluster-keys.json
+```
+
+Crea una variable llamada VAULT_UNSEAL_KEY para capturar la clave de desbloqueo de Vault:
+
+```bash
+$ VAULT_UNSEAL_KEY=$(jq -r ".unseal_keys_b64[]" cluster-keys.json)
+```
+
+Después de la inicialización, Vault está configurado para saber dónde y cómo acceder al almacenamiento, pero no sabe cómo desencriptar nada de él. Desbloquear es el proceso de construir la clave raíz necesaria para leer la clave de desencriptación para desencriptar los datos, permitiendo el acceso a Vault.
+
+Desbloquea Vault que se ejecuta en el pod vault-0:
+
+```bash
+$ kubectl exec vault-0 -- vault operator unseal $VAULT_UNSEAL_KEY
+```
+
+**Operación insegura**
+
+Proporcionar la clave de desbloqueo en la línea de comandos puede ser riesgoso porque otras aplicaciones en el host pueden registrar la actividad de la línea de comandos. Este enfoque solo se usa aquí para simplificar el proceso de desbloqueo para esta demostración.
+
+Verifica que el estado del pod de Vault cambie de `sealed` a `unsealed`.
+
+En este punto, puedes continuar con los otros pods de Vault en el clúster, vault-1 y vault-2.
+
+Desbloquea vault-1:
+
+```bash
+$ kubectl exec vault-1 -- vault operator unseal $VAULT_UNSEAL_KEY
+```
+
+Desbloquea vault-2:
+
+```bash
+$ kubectl exec vault-2 -- vault operator unseal $VAULT_UNSEAL_KEY
+```
+
+Para configurar un secreto en Vault , necesitas iniciar sesión con el token raíz, habilitar el motor de secretos (kv-v2) y almacenar el nombre de usuario y la contraseña en la ruta definida.
+
+Recupera el token raíz del archivo `cluster-keys.json`:
+
+```sh
+$ jq -r ".root_token" cluster-keys.json
+```
+
+Inicia una sesión interactiva en el pod `vault-0`:
+
+```sh
+$ kubectl exec --stdin=true --tty=true vault-0 -- /bin/sh
+/ $
+```
+
+Inicia sesión en Vault utilizando el token raíz:
+
+```sh
+$ vault login
+Token (will be hidden):
+Success! You are now authenticated. The token information displayed below
+is already stored in the token helper. You do NOT need to run "vault login"
+again. Future Vault requests will automatically use this token.
+
+Key                  Value
+---                  -----
+token                
+token_accessor       
+token_duration       ∞
+token_renewable      false
+token_policies       ["root"]
+identity_policies    []
+policies             ["root"]
+```
+
+Habilita una instancia del motor de secretos `kv-v2` en la ruta `secret`:
+
+```sh
+$ vault secrets enable -path=secret kv-v2
+Success! Enabled the kv-v2 secrets engine at: secret/
+```
+
+Crea un secreto en la ruta `secret/webapp/config` con un nombre de usuario y una contraseña:
+
+```sh
+$ vault kv put secret/webapp/config username="static-user" password="static-password"
+====== Secret Path ======
+secret/data/webapp/config
+
+======= Metadata =======
+Key                Value
+---                -----
+created_time       2022-06-07T05:15:19.402740412Z
+custom_metadata    <nil>
+deletion_time      n/a
+destroyed          false
+version            1
+```
+
+Verifica que el secreto esté definido en la ruta `secret/webapp/config`:
+
+```sh
+$ vault kv get secret/webapp/config
+====== Secret Path ======
+secret/data/webapp/config
+
+======= Metadata =======
+Key                Value
+---                -----
+created_time       2022-06-07T05:15:19.402740412Z
+custom_metadata    <nil>
+deletion_time      n/a
+destroyed          false
+version            1
+
+====== Data ======
+Key         Value
+---         -----
+password    static-password
+username    static-user
+```
+
+Salimos del pod `vault-0`:
+
+```sh
+$ exit
+```
+
+Para proporcionar de manera segura acceso a los secretos de Vault a tu aplicación web, configura la autenticación de Kubernetes.
+
+Inicia una sesión interactiva en el pod `vault-0`:
+
+```sh
+$ kubectl exec --stdin=true --tty=true vault-0 -- /bin/sh
+/ $
+```
+
+Habilita el método de autenticación de Kubernetes:
+
+```sh
+$ vault auth enable kubernetes
+Success! Enabled kubernetes auth method at: kubernetes/
+```
+
+Configura el método de autenticación de Kubernetes para usar la ubicación de la API de Kubernetes:
+
+```sh
+$ vault write auth/kubernetes/config \
+    kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
+Success! Data written to: auth/kubernetes/config
+```
+
+Escribe la política denominada `webapp` que habilita la capacidad de lectura para los secretos en la ruta `secret/data/webapp/config`:
+
+```sh
+$ vault policy write webapp - <<EOF
+path "secret/data/webapp/config" {
+  capabilities = ["read"]
+}
+EOF
+Success! Uploaded policy: webapp
+```
+
+Crea un rol de autenticación de Kubernetes denominado `webapp` que conecta el nombre de la cuenta de servicio de Kubernetes y la política `webapp`:
+
+```sh
+$ vault write auth/kubernetes/role/webapp \
+        bound_service_account_names=vault \
+        bound_service_account_namespaces=default \
+        policies=webapp \
+        ttl=24h
+Success! Data written to: auth/kubernetes/role/webapp
+```
+
+Sal del pod `vault-0`:
+
+```sh
+$ exit
+```
+
+Has configurado con éxito Vault y configurado la autenticación de Kubernetes para tus aplicaciones
